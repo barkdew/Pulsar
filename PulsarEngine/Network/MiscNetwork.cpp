@@ -14,11 +14,12 @@
 
 namespace Pulsar {
 namespace Network {
+//Edit 2026-04-22: Enable no disconnect
 //No disconnect for being idle (Bully)
-//kmWrite32(0x80521408, 0x38000000);
-//kmWrite32(0x8053EF6C, 0x38000000);
-//kmWrite32(0x8053F0B4, 0x38000000);
-//kmWrite32(0x8053F124, 0x38000000);
+kmWrite32(0x80521408, 0x38000000);
+kmWrite32(0x8053EF6C, 0x38000000);
+kmWrite32(0x8053F0B4, 0x38000000);
+kmWrite32(0x8053F124, 0x38000000);
 
 static void CalcSectionAfterRace(SectionMgr* sectionMgr, SectionId id) {
 

@@ -36,7 +36,6 @@ enum Context {
     PULSAR_MODE_OTT,
     PULSAR_MODE_KO,
     PULSAR_CONTEXT_COUNT,
-	PULSAR_KOFINAL,
 };
 
 

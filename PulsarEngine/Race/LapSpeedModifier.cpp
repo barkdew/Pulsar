@@ -18,6 +18,9 @@ RaceinfoPlayer* LoadCustomLapCount(RaceinfoPlayer* player, u8 id) {
     if (lapCount == 0) {
         lapCount = 3;
     }
+	//Edit 2026-04-22: Add this for Countdown
+	//CTDN - replace the last 3 lines with this
+	//lapCount = 8;
     Racedata::sInstance->racesScenario.settings.lapCount = lapCount;
     return new(player) RaceinfoPlayer(id, lapCount);
 }
@@ -59,15 +62,17 @@ Kart::Stats* ApplySpeedModifier(KartId kartId, CharacterId characterId) {
     Item::blueShellMinimumDiveDistance = 640000.0f * factor;
     Item::blueShellHomingSpeed = 130.0f * factor;
 
-	Kart::hardSpeedCap = 120.0f * factor; //Normally is 120.0
+	//Edit 2026-04-22: Fix speed cap
+    Kart::hardSpeedCap = 120.0f + (factor - 1.0f) * 90.0f;
 	Kart::bulletSpeed = 145.0f * factor;
 	
-	if(System::sInstance->IsContext(PULSAR_MEGATC)){
-    Kart::bulletSpeed = 152.25f * factor;
-	}
+	//Edit 2026-04-22: Remove bullet speed mod
+	//if(System::sInstance->IsContext(PULSAR_MEGATC)){
+    //Kart::bulletSpeed = 152.25f * factor;
+	//}
 	
     Kart::starSpeed = 105.0f * factor;
-    Kart::megaTCSpeed = 90.0f * factor; //Normally is 95.0
+    Kart::megaTCSpeed = 95.0f * factor;
 
     stats->baseSpeed *= factor;
     stats->standard_acceleration_as[0] *= factor;
@@ -77,9 +82,10 @@ Kart::Stats* ApplySpeedModifier(KartId kartId, CharacterId characterId) {
 
     Kart::minDriftSpeedRatio = 0.55f * (factor > 1.0f ? (1.0f / factor) : 1.0f);
 	
-	if(System::sInstance->IsContext(PULSAR_MEGATC)){
-    Kart::minDriftSpeedRatio = 0.40f * (factor > 1.0f ? (1.0f / factor) : 1.0f);
-	}
+	//Edit 2026-04-22: Remove mini turbo mods
+	//if(System::sInstance->IsContext(PULSAR_MEGATC)){
+    //Kart::minDriftSpeedRatio = 0.40f * (factor > 1.0f ? (1.0f / factor) : 1.0f);
+	//}
 	
     Kart::unknown_70 = 70.0f * factor;
     Kart::regularBoostAccel = 3.0f * factor;
@@ -94,6 +100,7 @@ kmWrite32(0x80534BBC, 0x60000000);
 kmWrite32(0x80723D10, 0x281D0009);
 kmWrite32(0x80723D40, 0x3BA00009);
 
-kmWrite24(0x808AAA0C, 'PUL'); //time_number -> time_numPUL
+//Edit 2026-04-22: Remove custom time number for Race.szs compatibility
+//kmWrite24(0x808AAA0C, 'PUL'); //time_number -> time_numPUL
 }//namespace Race
 }//namespace Pulsar

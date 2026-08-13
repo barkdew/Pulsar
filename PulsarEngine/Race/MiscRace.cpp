@@ -128,14 +128,15 @@ kmWrite32(0x807F4DB8, 0x38000001);
 
 //Draggable blue shells
 static void DraggableBlueShells(Item::PlayerObj& sub) {
-    if(!System::sInstance->IsContext(PULSAR_CT)) {
+	const u8 dgbs = Settings::Mgr::Get().GetSettingValue(Settings::SETTINGSTYPE_RACE, SETTINGRACE_RADIO_BLUES);
+    if(dgbs == RACESETTING_DRAGGABLE_BLUES_DISABLED) {
         sub.isNotDragged = true;
     }
 }
 kmBranch(0x807ae8ac, DraggableBlueShells);
 
 //Coloured Minimap
-kmWrite32(0x807DFC24, 0x60000000);
+//kmWrite32(0x807DFC24, 0x60000000);
 
 /*
 //No Team Invincibility
@@ -153,46 +154,48 @@ kmWrite32(0x807f18c8, 0x38000000); //TC alert*/
 //kmWrite16(0x80572690, 0x4800);
 //kmWrite16(0x80569F68, 0x4800);
 
+//Edit 2026-04-22: Disable custom item window for Race.szs compatibility
 //CtrlItemWindow
-kmWrite24(0x808A9C16, 'PUL'); //item_window_new -> item_window_PUL
+//kmWrite24(0x808A9C16, 'PUL'); //item_window_new -> item_window_PUL
+//
+//const char* ChangeItemWindowPane(ItemId id, u32 itemCount) {
+//    const bool feather = System::sInstance->IsContext(PULSAR_FEATHER);
+//    const bool megaTC = System::sInstance->IsContext(PULSAR_MEGATC);
+//    const char* paneName;
+//    if (id == BLOOPER && feather) {
+//        if (itemCount == 2) paneName = "feather_2";
+//        else if (itemCount == 3) paneName = "feather_3";
+//        else paneName = "feather";
+//    }
+//    else if (id == THUNDER_CLOUD && megaTC) paneName = "megaTC";
+//    else paneName = GetItemIconPaneName(id, itemCount);
+//    return paneName;
+//}
+//kmCall(0x807f3648, ChangeItemWindowPane);
+//kmCall(0x807ef168, ChangeItemWindowPane);
+//kmCall(0x807ef3e0, ChangeItemWindowPane);
+//kmCall(0x807ef444, ChangeItemWindowPane);
+//
+//kmWrite24(0x808A9FF3, 'PUL');
 
-const char* ChangeItemWindowPane(ItemId id, u32 itemCount) {
-    const bool feather = System::sInstance->IsContext(PULSAR_FEATHER);
-    const bool megaTC = System::sInstance->IsContext(PULSAR_MEGATC);
-    const char* paneName;
-    if (id == BLOOPER && feather) {
-        if (itemCount == 2) paneName = "feather_2";
-        else if (itemCount == 3) paneName = "feather_3";
-        else paneName = "feather";
-    }
-    else if (id == THUNDER_CLOUD && megaTC) paneName = "megaTC";
-    else paneName = GetItemIconPaneName(id, itemCount);
-    return paneName;
-}
-kmCall(0x807f3648, ChangeItemWindowPane);
-kmCall(0x807ef168, ChangeItemWindowPane);
-kmCall(0x807ef3e0, ChangeItemWindowPane);
-kmCall(0x807ef444, ChangeItemWindowPane);
-
-kmWrite24(0x808A9FF3, 'PUL');
-
+//Edit 2026-04-22: Disable Accurate Item Roulette. Maybe make this toggleable later?
 //Accurate Item Roulette Roulette by BrawlBox
-static int AccurateItemRoulette(Item::ItemSlotData *itemSlotData, u16 itemBoxType, u8 position, ItemId prevRandomItem, bool r7){
-        if (!IsBattle()){
-            const u8 playerId = Raceinfo::sInstance->playerIdInEachPosition[position-1];
-            Item::Player *itemPlayer = &Item::Manager::sInstance->players[playerId];
-            return itemSlotData->DecideItem(itemBoxType, position, itemPlayer->isHuman, 0x1, itemPlayer);
-            }
-            return itemSlotData->DecideRouletteItem(itemBoxType, position, prevRandomItem, r7);
-}
-kmCall(0x807ba1e4, AccurateItemRoulette);
-kmCall(0x807ba428, AccurateItemRoulette);
-kmCall(0x807ba598, AccurateItemRoulette);
+//static int AccurateItemRoulette(Item::ItemSlotData *itemSlotData, u16 itemBoxType, u8 position, ItemId prevRandomItem, bool r7){
+//        if (!IsBattle()){
+//            const u8 playerId = Raceinfo::sInstance->playerIdInEachPosition[position-1];
+//            Item::Player *itemPlayer = &Item::Manager::sInstance->players[playerId];
+//            return itemSlotData->DecideItem(itemBoxType, position, itemPlayer->isHuman, 0x1, itemPlayer);
+//            }
+//            return itemSlotData->DecideRouletteItem(itemBoxType, position, prevRandomItem, r7);
+//}
+//kmCall(0x807ba1e4, AccurateItemRoulette);
+//kmCall(0x807ba428, AccurateItemRoulette);
+//kmCall(0x807ba598, AccurateItemRoulette);
 
 //Deflicker by Toadette Hack Fan and Optllizer
 void DeFlicker() {
 Blurry = 0x41820040;
-if(Settings::Mgr::Get().GetSettingValue(Settings::SETTINGSTYPE_MENU2, SETTINGMENU2_RADIO_FLICKER) == MENUSETTING2_FLICKER_ENABLED) {
+if(Settings::Mgr::Get().GetSettingValue(Settings::SETTINGSTYPE_OTT, SETTINGOTT_RADIO_FLICKER) == OTTSETTING_FLICKER_ENABLED) {
 Blurry = 0x48000040;
 }
 }
@@ -205,7 +208,7 @@ kmWrite32(0x8055422C, 0x48000044);
 
  void FPSPatch() {
     FPSPatchHook = 0x00;
-    if (Settings::Mgr::Get().GetSettingValue(Settings::SETTINGSTYPE_MENU2, SETTINGMENU2_RADIO_FPS) == 1) {
+    if (Settings::Mgr::Get().GetSettingValue(Settings::SETTINGSTYPE_OTT, SETTINGOTT_RADIO_FPS) == 1) {
         FPSPatchHook = 0x00FF0100;
     }
     System::CacheInvalidateAddress(FPSPatchHook);
@@ -213,27 +216,28 @@ kmWrite32(0x8055422C, 0x48000044);
 static PageLoadHook PatchFPS(FPSPatch);
 
 //Remove Background Blur by TheGamingBram
-void Remove_Background_Blur(){
-    U32_RBBG_HOOK_PT1 = 0x03000000;
-    U32_RBBG_HOOK_PT2 = 0x3f000000;
-
-    if(Settings::Mgr::Get().GetSettingValue(Settings::SETTINGSTYPE_MENU2, SETTINGMENU2_RADIO_BLUR) == 1){
-        U32_RBBG_HOOK_PT1 = 0x03000000;
-        U32_RBBG_HOOK_PT2 = 0x30000000;
-    }
-    System::CacheInvalidateAddress(U32_RBBG_HOOK_PT1);
-    System::CacheInvalidateAddress(U32_RBBG_HOOK_PT2);
-}
-static PageLoadHook RBBG_Hook(Remove_Background_Blur);
+//void Remove_Background_Blur(){
+//    U32_RBBG_HOOK_PT1 = 0x03000000;
+//    U32_RBBG_HOOK_PT2 = 0x3f000000;
+//
+//    if(Settings::Mgr::Get().GetSettingValue(Settings::SETTINGSTYPE_MENU2, SETTINGMENU2_RADIO_BLUR) == 1){
+//        U32_RBBG_HOOK_PT1 = 0x03000000;
+//        U32_RBBG_HOOK_PT2 = 0x30000000;
+//    }
+//    System::CacheInvalidateAddress(U32_RBBG_HOOK_PT1);
+//    System::CacheInvalidateAddress(U32_RBBG_HOOK_PT2);
+//}
+//static PageLoadHook RBBG_Hook(Remove_Background_Blur);
 
 //Always Show Timer on Vote Screen by Chadderz
 kmWrite32(0x80650254,0x60000000);
 
 //Allow Looking Backwards During Respawn by Ro
-kmWrite32(0x805A228C,0x60000000);
+//kmWrite32(0x805A228C,0x60000000);
 
+//Edit 2026-04-22: Fix that prevents the hack from activating at a time it could crash the game
 //Allow pausing before the race starts by Sponge
-kmWrite32(0x80856a28,0x48000050);
+kmWrite32(0x80856a28,0x40810050);
 
 //Show Nametags During Countdown By Ro
 kmWrite32(0x807F13F0,0x38600001);
@@ -263,6 +267,7 @@ kmWrite32(0x80895CE4, 0x008600FF);
 */
 
 //AntiFlicker by Riidefi
+/*
 asmFunc AntiFlicker() {
     ASM(
         nofralloc;
@@ -342,5 +347,7 @@ loc_0xB4:
 }
 kmBranch(0x80052190, AntiFlicker);
 kmPatchExitPoint(AntiFlicker, 0x80052194);
+*/
+
 }//namespace Race
 }//namespace Pulsar

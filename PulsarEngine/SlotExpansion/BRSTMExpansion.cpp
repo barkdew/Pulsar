@@ -32,11 +32,11 @@ s32 CheckBRSTM(const nw4r::snd::DVDSoundArchive* archive, PulsarId id, bool isFi
 nw4r::ut::FileStream* MusicSlotsExpand(nw4r::snd::DVDSoundArchive* archive, void* buffer, int size,
     const char* extFilePath, u32 r7, u32 length) {
     
-    u8 isBRSTMOn = Settings::Mgr::Get().GetSettingValue(Settings::SETTINGSTYPE_RACE, SETTINGRACE_RADIO_BRSTM);
+    u8 isBRSTMOn = Settings::Mgr::Get().GetSettingValue(Settings::SETTINGSTYPE_KO, SETTINGKO_RADIO_BRSTM);
     const char firstChar = extFilePath[0xC];
     const CupsConfig* cupsConfig = CupsConfig::sInstance;
     const PulsarId track = cupsConfig->GetWinning();
-    if((firstChar == 'n' || firstChar == 'S' || firstChar == 'r') && !CupsConfig::IsReg(track) && isBRSTMOn == RACESETTING_BRSTM_ENABLED) {
+    if((firstChar == 'n' || firstChar == 'S' || firstChar == 'r') && !CupsConfig::IsReg(track) && isBRSTMOn == KOSETTING_BRSTM_ENABLED) {
         bool isFinalLap = false;
         register u32 strLength;
         asm(mr strLength, r28;);

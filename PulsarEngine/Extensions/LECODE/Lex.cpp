@@ -1,4 +1,4 @@
-
+//CTDN - Delete this whole file
 #include <Extensions/LECODE/Lex.hpp>
 #include <MarioKartWii/Archive/ArchiveMgr.hpp>
 #include <MarioKartWii/UI/Ctrl/CtrlRace/CtrlRaceRankNum.hpp>

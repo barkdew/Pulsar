@@ -2,11 +2,12 @@
 #define _KOHOST_
 #include <kamek.hpp>
 
+
 namespace Pulsar {
 namespace KO {
 void HAWChangeData();
 
-}  // namespace KO
-}  // namespace Pulsar
+}//namespace KO
+}//namespace Pulsar
 
 #endif

@@ -3,29 +3,36 @@
 namespace Pulsar {
 namespace Race {
 
-//RACE SPECIFIC
+//Edit 2026-04-22: Disable codes that may conflict with Wiimmfi or are not needed due to Wiimmfi. For now.
+//Edit 2026-04-23: Re-enable gameplay changing codes because we have to disable WWs anyway
 
-//Fix Mushroom Glitch
-kmWrite8(0x807BA077, 0x00000000);
+//Mushroom Glitch
+//kmWrite8(0x807BA077, 0x00000000);
 
-//Impervious TC
-kmWrite32(0x807AFAA8, 0x48000038);
-
-//Rexcore Countdown (Look Behind)
+//Rexcore Countdown
 kmWrite32(0x805A225C, 0x38800001);
 
+//Edit 2026-04-23: Change timer limit to 5:40
 //Extend race online
 kmWrite32(0x8053F3B8,0x3C600005);
-kmWrite32(0x8053F3BC,0x38837E40);
+kmWrite32(0x8053F3BC,0x38833020);
 kmWrite32(0x8053F478,0x4800000C); //6 Minute DC Disables
 
 //Anti Online Penalized by B_squo
 kmWrite32(0x80549218, 0x38600000);
 kmWrite32(0x8054921c, 0x4e800020);
 
+//Edit 2026-04-22: Disable ww bubble skip
 //WW Bubble Skip [Ro]
-kmWrite8(0x80609647, 0x0000003C);
-kmWrite8(0x8060964F, 0x0000001E);
+//kmWrite8(0x80609647, 0x0000003C);
+//kmWrite8(0x8060964F, 0x0000001E);
+
+//Edit 2026-04-22: Add this for Countdown
+//Skip Mode Select Option Online (Always VS) [Ro]
+//CTDN - enable this
+//kmWrite32(0x8064BD88, 0x3800008F);
+//kmWrite32(0x8064BE64, 0x3800008F);
+//kmWrite32(0x80609AAC, 0x3800008B);
 
 //Remove Chadderz Button
 kmWrite16(0x8064B982, 0x00000005);
@@ -46,62 +53,19 @@ kmWrite16(0x8064BCC2, 0x000010D7);
 //No Bullet Bill Cancel When Touching Bottom of Rainbow Road [Ro]
 kmWrite32(0x8059BE30, 0x60000000);
 
-//Skip Mode Selection Online [Ro]
-kmWrite32(0x8064be64, 0x3800008F); //Regional/CTWW -> VS Race
-kmWrite32(0x80609aac, 0x3800008B); //Back from Character Selection
-
-//Fix Toad's Factory Music
-kmWrite32(0x80719920, 0x48000010); //Disable Sound Trigger Reset
-kmWrite16(0x80711FE8, 0x00004800); //Music starts at beginning of BRSTM
-kmWrite16(0x80712024, 0x00004800);
-kmWrite16(0x8071207C, 0x00004800);
-kmWrite16(0x807120B8, 0x00004800);
-
 //Fix these fuckin boxes [Unnamed]
 asmFunc ItemRespawn() {
 loc_0x0:
-  li r12, 0x30 //30 frames
+  li r12, 0x45
   stw r12, 184(r27)
   stw r0, 176(r27)
 
 }
 kmCall(0x80828EDC, ItemRespawn);
 
-//Worldwide/Regional Opponent Zoom in Regional/Worldwide
-kmWrite32(0x805E527C, 0x3BC00000);
-
-//Bullet Cannon Fix
-//kmWrite32(0x8057855B, 0x000000F8);
-
-//Fix Star Off/Road Glitch after Cannon [Ro]
-asmFunc StarCannonBug() {
-loc_0x0:
-  andi. r11, r0, 0x80
-  andis. r12, r0, 0x8000
-  or. r0, r11, r12
-  
-}  
-kmCall(0x8057C3F8, StarCannonBug);
-
-//CODES BELOW WERE TAKEN FROM INSANE KART WII!
-
-//Event Overflow Protection [Seeky]
-asmFunc EventOverflowProtection() {
-  ASM(
-    nofralloc;
-  lbz       r12, 0x1C(r27);
-  add       r12, r30, r12;
-  cmpwi     r12, 0xE0;
-  blt+      loc_0x18;
-  li        r0, 0;
-  stb       r0, 0x19(r27);
-
-loc_0x18:
-  lbz       r0, 0x19(r27);
-  blr;
-  )
-}
-kmCall(0x8065BBD4, EventOverflowProtection);
+//3 sec TC
+kmWrite32(0x80580618, 0x388000B4);
+kmWrite32(0x80580674, 0x388000B4);
 
 //Enhanced Pause Menu [Ro]
 kmWrite32(0x8062c658, 0x38800019);
@@ -173,99 +137,5 @@ kmCall(0x80623df4, EnhancedPauseMenu2);
 kmWrite32(0x80859068, 0x48000808);
 kmWrite32(0x80858e38, 0x48000040);
 
-//Goomba Size Memorizer [_tZ]
-kmWrite32(0x80821E78, 0x38600158);
-kmWrite32(0x806DC750, 0xD19D0044);
-kmWrite32(0x806DC6F0, 0xD19D0044);
-kmWrite32(0x806DCB30, 0xD19C0044);
-kmWrite32(0x806DCAD4, 0xD19C0040);
-
-asmFunc GoombaSizeMemorizer1() {
-    ASM(
-        nofralloc;
-  lfs       f8, 0x3C(r29);
-  lfs       f7, 0x40(r29);
-  lfs       f6, 0x44(r29);
-  stfs      f8, 0x14C(r29);
-  stfs      f7, 0x150(r29);
-  stfs      f6, 0x154(r29);
-  li        r30, 0;
-  blr;
-
-    )
-}
-kmCall(0x806db1b4, GoombaSizeMemorizer1);
-
-asmFunc GoombaSizeMemorizer2() {
-    ASM(
-        nofralloc;
-  lfs       f9, 0x14C(r29);
-  lfs       f10, 0x150(r29);
-  lfs       f11, 0x154(r29);
-  fmul      f12, f11, f1;
-  fmul      f1, f9, f1;
-  fmul      f0, f10, f0;
-  stfs      f1, 0x3C(r29);
-  blr;
-
-    )
-}
-kmCall(0x806DC6E8, GoombaSizeMemorizer2);
-kmCall(0x806DC748, GoombaSizeMemorizer2);
-
-asmFunc GoombaSizeMemorizer3() {
-    ASM(
-        nofralloc;
-  lfs       f9, 0x14C(r28);
-  lfs       f10, 0x150(r28);
-  lfs       f11, 0x154(r28);
-  fmul      f12, f11, f1;
-  fmul      f1, f9, f1;
-  fmul      f0, f10, f0;
-  stfs      f1, 0x3C(r28);
-  blr;
-
-    )
-}
-kmCall(0x806DCB28, GoombaSizeMemorizer3);
-
-asmFunc GoombaSizeMemorizer4() {
-    ASM(
-        nofralloc;
-  lfs       f9, 0x14C(r28);
-  lfs       f10, 0x150(r28);
-  lfs       f11, 0x154(r28);
-  fmul      f12, f11, f0;
-  fmul      f13, f9, f0;
-  fmul      f0, f10, f0;
-  stfs      f12, 0x3C(r28);
-  blr;
-
-    )
-}
-kmCall(0x806DCACC, GoombaSizeMemorizer4);
-
-//Poocha Fix [Ro]
-asmFunc PochaFix() {
-    ASM(
-        nofralloc;
-  lbz       r31, 0x78(r3);
-  cmpwi     r31, 0;
-  beq-      loc_0x24;
-  lbz       r31, 0xE(r3);
-  addi      r31, r31, 0x1;
-  cmpwi     r31, 0x3C;
-  blt-      loc_0x24;
-  li        r31, 0;
-  stb       r31, 0x78(r3);
-
-loc_0x24:
-  stb       r31, 0xE(r3);
-  mr        r31, r3;
-  blr;
-
-    )
-}
-kmCall(0x8069B3A8, PochaFix);
 }//namespace Race
 }//namespace Pulsar

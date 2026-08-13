@@ -1,4 +1,4 @@
-
+//CTDN - Delete this whole file
 #ifndef _LECODE_LEX_
 #define _LECODE_LEX_
 #include <kamek.hpp>

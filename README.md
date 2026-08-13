@@ -1,3 +1,14 @@
+# Legacy Pack Revival
+I FORGOT THE EMAIL FOR THE ACCOUNT I PUT THE SOURCE CODE ON SO I HAD TO MAKE A NEW FORK
+
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHHHHHHHHHHHHHHHHHHHHHHHH
+
+This is the source code for Legacy Pack Revival v2. It is a fork of Yosh's Track Pack DX which is a fork of OptPack which is a fork of Pulsar. Yes this is necessary.
+
+Some explanation is necessary to understand a few things:
+- Countdown Mode, while also loading a separate GCT, uses its own Code.pul. You can find any changes made in that by searching comments containing CTDN.
+- The Mega TCs flag has been repurposed for Hack Pack v6 code, and the Ultra Mini Turbos flag has been repurposed for Hack Pack vX code (unfinished as of now).
+
 # Pulsar
 
 Pulsar is a Mario Kart Wii Kamek-Based engine to create CT distributions. It comes with its own [software](../main/PulsarPackCreator/Executable) to aid in building custom distributions, and multiple quality of life features:

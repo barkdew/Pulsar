@@ -118,10 +118,10 @@ void CtrlRaceInputViewer::OnUpdate() {
     }
 }
 u32 CtrlRaceInputViewer::Count() {
-    if(Settings::Mgr::Get().GetSettingValue(Settings::SETTINGSTYPE_MENU, SETTINGMENU_RADIO_INPUT) == MENUSETTING_INPUT_DISABLED)
+    if(Settings::Mgr::Get().GetSettingValue(Settings::SETTINGSTYPE_RACE, SETTINGRACE_RADIO_INPUT) == RACESETTING_INPUT_DISABLED)
         return 0;
-    else if(Settings::Mgr::Get().GetSettingValue(Settings::SETTINGSTYPE_MENU, SETTINGMENU_RADIO_INPUT) == MENUSETTING_INPUT_ENABLED || 
-    Settings::Mgr::Get().GetSettingValue(Settings::SETTINGSTYPE_MENU, SETTINGMENU_RADIO_INPUT) == MENUSETTING_INPUT_FORCED) {
+    else if(Settings::Mgr::Get().GetSettingValue(Settings::SETTINGSTYPE_RACE, SETTINGRACE_RADIO_INPUT) == RACESETTING_INPUT_ENABLED || 
+    Settings::Mgr::Get().GetSettingValue(Settings::SETTINGSTYPE_RACE, SETTINGRACE_RADIO_INPUT) == RACESETTING_INPUT_FORCED) {
         // Declare and initialize scenario here
         const RacedataScenario& scenario = Racedata::sInstance->racesScenario;
         u32 localPlayerCount = scenario.localPlayerCount;
@@ -153,15 +153,15 @@ void CtrlRaceInputViewer::Load(const char* variant, u8 id) {
 
     const SectionId sectionId = SectionMgr::sInstance->curSection->sectionId;
     const ControllerType controllerType = SectionMgr::sInstance->pad.padInfos[0].controllerHolder->curController->GetType();
-    const int inputSetting = Settings::Mgr::Get().GetSettingValue(Settings::SETTINGSTYPE_MENU, SETTINGMENU_RADIO_INPUT);
+    const int inputSetting = Settings::Mgr::Get().GetSettingValue(Settings::SETTINGSTYPE_RACE, SETTINGRACE_RADIO_INPUT);
     const bool isGhostRace = (sectionId >= SECTION_WATCH_GHOST_FROM_CHANNEL && sectionId <= SECTION_WATCH_GHOST_FROM_MENU);
 
-    if (inputSetting == MENUSETTING_INPUT_FORCED || isGhostRace) {
+    if (inputSetting == RACESETTING_INPUT_FORCED || isGhostRace) {
         loader.Load(UI::raceFolder, "PULInputViewer", variant, groups);
         return;
     }
 
-    if (controllerType == NUNCHUCK && inputSetting == MENUSETTING_INPUT_ENABLED && !isGhostRace) {
+    if (controllerType == NUNCHUCK && inputSetting == RACESETTING_INPUT_ENABLED && !isGhostRace) {
         loader.Load(UI::raceFolder, "PULInputViewerNunchuck", variant, groups);
         return;
     }
