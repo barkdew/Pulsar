@@ -104,7 +104,7 @@ kmCall(0x807A1A54, AntiItemColCrash);
 kmWrite32(0x80655578, 0x60000000);
 
 // Starting VR/BR
-kmWrite32(0x80548330, 0x38A003E8);
+//kmWrite32(0x80548330, 0x38A003E8);
 
 //VR/BR Limit Extension (32.500)
 //kmWrite16(0x8052D286, 0x00007EF4);
