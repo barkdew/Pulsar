@@ -59,7 +59,7 @@ class ExpCharacterSelect : public Pages::CharacterSelect {
 public:
     ExpCharacterSelect();
     void BeforeControlUpdate() override;
-	//Edit 2026-04-22: Disable Randomize Combo
+	//Disable Randomize Combo as it can still crash
     //void OnStartPress(u32 hudSlotId) override {
     //    if(hudSlotId == 0) RandomizeCombo();
     //}

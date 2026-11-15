@@ -156,10 +156,10 @@ void System::UpdateContext() {
                 isMiiHeads = newContext & (1 << PULSAR_MIIHEADS);
                 isRegs = newContext & (1 << PULSAR_REGS);
                 isRegsOnly = newContext & (1 << PULSAR_REGSONLY);
-                if(isOTT) {
-                    isUMTs &= newContext & (1 << PULSAR_UMTS);
-                    isFeather &= newContext & (1 << PULSAR_FEATHER);
-                }
+                //if(isOTT) {
+                //    isUMTs &= newContext & (1 << PULSAR_UMTS);
+                //    isFeather &= newContext & (1 << PULSAR_FEATHER);
+                //}
                 break;
             default: isCT = false;
         }
@@ -167,10 +167,10 @@ void System::UpdateContext() {
     else {
         const u8 ottOffline = settings.GetSettingValue(Settings::SETTINGSTYPE_OTT, SETTINGOTT_OFFLINE);
         isOTT = (mode == MODE_GRAND_PRIX || mode == MODE_VS_RACE) ? (ottOffline != OTTSETTING_OFFLINE_DISABLED) : false; //offlineOTT
-        //if(isOTT) {
-        //    isFeather &= (ottOffline == OTTSETTING_OFFLINE_FEATHER);
-        //    isUMTs &= ~settings.GetSettingValue(Settings::SETTINGSTYPE_OTT, SETTINGOTT_ALLOWUMTS);
-        //}
+        if(isOTT) {
+            isFeather &= (ottOffline == OTTSETTING_OFFLINE_FEATHER);
+            isUMTs &= ~settings.GetSettingValue(Settings::SETTINGSTYPE_OTT, SETTINGOTT_ALLOWUMTS);
+        }
     }
     this->netMgr.hostContext = newContext;
 

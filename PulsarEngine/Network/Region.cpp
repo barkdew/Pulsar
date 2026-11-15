@@ -4,8 +4,8 @@
 
 namespace Pulsar {
 namespace Network {
-//Edit 2026-04-22: Add this for Countdown
-//CTDN - change region numbers accordingly
+//CTDN - change region numbers accordingly	
+
 //Region Patch (Leseratte)
 static void PatchLoginRegion() {
     u32 region = System::sInstance->GetInfo().GetWiimmfiRegion() + 19000;

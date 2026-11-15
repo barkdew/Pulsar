@@ -1,14 +1,11 @@
 #include <kamek.hpp>
-#include <MarioKartWii/Race/RaceInfo/RaceInfo.hpp>
+#include <MarioKartWii/Race/Raceinfo/Raceinfo.hpp>
 #include <MarioKartWii/3D/Model/ModelDirector.hpp>
 #include <MarioKartWii/Kart/KartValues.hpp>
 #include <MarioKartWii/Kart/KartMovement.hpp>
 #include <MarioKartWii/Item/Obj/ObjProperties.hpp>
-#include <MarioKartWii/RKNet/RKNetController.hpp>
-#include <MarioKartWii/File/StatsParam.hpp>
 #include <Race/200ccParams.hpp>
 #include <PulsarSystem.hpp>
-#include <MarioKartWii/File/RKG.hpp>
 
 namespace Pulsar {
 namespace Race {
@@ -18,7 +15,6 @@ RaceinfoPlayer* LoadCustomLapCount(RaceinfoPlayer* player, u8 id) {
     if (lapCount == 0) {
         lapCount = 3;
     }
-	//Edit 2026-04-22: Add this for Countdown
 	//CTDN - replace the last 3 lines with this
 	//lapCount = 8;
     Racedata::sInstance->racesScenario.settings.lapCount = lapCount;
@@ -48,11 +44,6 @@ Kart::Stats* ApplySpeedModifier(KartId kartId, CharacterId characterId) {
     speedModConv.kmpValue = (KMP::Manager::sInstance->stgiSection->holdersArray[0]->raw->speedMod << 16);
     if(speedModConv.speedMod == 0.0f) speedModConv.speedMod = 1.0f;
     float factor = System::sInstance->IsContext(PULSAR_200) ? speedFactor : 1.0f;
-	const GameMode gameMode = Racedata::sInstance->menusScenario.settings.gamemode;
-    const GameType gameType = Racedata::sInstance->menusScenario.settings.gametype;
-	if (gameType == GAMETYPE_ONLINE_SPECTATOR) {
-        factor = 1.0f;
-	}
     factor *= speedModConv.speedMod;
 
     Item::greenShellSpeed = 105.0f * factor;
@@ -62,15 +53,8 @@ Kart::Stats* ApplySpeedModifier(KartId kartId, CharacterId characterId) {
     Item::blueShellMinimumDiveDistance = 640000.0f * factor;
     Item::blueShellHomingSpeed = 130.0f * factor;
 
-	//Edit 2026-04-22: Fix speed cap
     Kart::hardSpeedCap = 120.0f + (factor - 1.0f) * 90.0f;
-	Kart::bulletSpeed = 145.0f * factor;
-	
-	//Edit 2026-04-22: Remove bullet speed mod
-	//if(System::sInstance->IsContext(PULSAR_MEGATC)){
-    //Kart::bulletSpeed = 152.25f * factor;
-	//}
-	
+    Kart::bulletSpeed = 145.0f * factor;
     Kart::starSpeed = 105.0f * factor;
     Kart::megaTCSpeed = 95.0f * factor;
 
@@ -81,12 +65,6 @@ Kart::Stats* ApplySpeedModifier(KartId kartId, CharacterId characterId) {
     stats->standard_acceleration_as[3] *= factor;
 
     Kart::minDriftSpeedRatio = 0.55f * (factor > 1.0f ? (1.0f / factor) : 1.0f);
-	
-	//Edit 2026-04-22: Remove mini turbo mods
-	//if(System::sInstance->IsContext(PULSAR_MEGATC)){
-    //Kart::minDriftSpeedRatio = 0.40f * (factor > 1.0f ? (1.0f / factor) : 1.0f);
-	//}
-	
     Kart::unknown_70 = 70.0f * factor;
     Kart::regularBoostAccel = 3.0f * factor;
 
@@ -100,7 +78,6 @@ kmWrite32(0x80534BBC, 0x60000000);
 kmWrite32(0x80723D10, 0x281D0009);
 kmWrite32(0x80723D40, 0x3BA00009);
 
-//Edit 2026-04-22: Remove custom time number for Race.szs compatibility
 //kmWrite24(0x808AAA0C, 'PUL'); //time_number -> time_numPUL
 }//namespace Race
 }//namespace Pulsar

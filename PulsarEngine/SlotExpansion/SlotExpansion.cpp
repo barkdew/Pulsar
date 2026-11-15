@@ -114,7 +114,7 @@ static void VSRaceRandomFix(SectionParams* params) { //properly randomizes track
     bool isRepeat;
     for (int i = 0; i < 32; ++i) {
         do {
-            if(Settings::Mgr::Get().GetSettingValue(Settings::SETTINGSTYPE_MENU, SETTINGMENU_RADIO_REGS) == MENUSETTING_REGS_ENABLED) {
+			if(Settings::Mgr::Get().GetSettingValue(Settings::SETTINGSTYPE_MENU, 	SETTINGMENU_RADIO_REGS) == MENUSETTING_REGS_ENABLED) {
 				id = cupsConfig->RandomizeTrackReg();
 			} else {
 				id = cupsConfig->RandomizeTrack();

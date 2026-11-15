@@ -117,7 +117,7 @@ SectionParams& FavouriteCombo(SectionParams& params) {
 }
 kmBranch(0x805e4228, FavouriteCombo);*/
 
-//Edit 2026-04-22: Disable Default to Favorite Combo
+
 //void SetDefaultToFavouriteCombo(SectionParams& params, PushButton& button) {
 //    const RKSYS::Mgr* rksysMgr = RKSYS::Mgr::sInstance;
 //    const RKSYS::LicenseMgr& LicenseMgr = rksysMgr->licenses[button.buttonId - 1];
@@ -151,16 +151,16 @@ CameraParamBin* GetKartParamCamera(u32 weight, u32 screenCount) {
         s_hasSavedCameraParams = true;
     } // Closing brace added here
 
-    OTTSettingFOV fovChange = static_cast<OTTSettingFOV>(Settings::Mgr::Get().GetSettingValue(Settings::SETTINGSTYPE_OTT, SETTINGOTT_RADIO_FOV));
-    if (fovChange != OTTSETTING_FOV_DEFAULT) {
-        if (fovChange == OTTSETTING_FOV_169) {
+    MenuSetting2FOV fovChange = static_cast<MenuSetting2FOV>(Settings::Mgr::Get().GetSettingValue(Settings::SETTINGSTYPE_OTT, SETTINGMENU2_RADIO_FOV));
+    if (fovChange != MENUSETTING2_FOV_DEFAULT) {
+        if (fovChange == MENUSETTING2_FOV_169) {
             for (int i = 0; i < 9; ++i) {
                 s_savedCameraParams.camerasParam[i][0] = cameraParam->camerasParam[i][1];
                 s_savedCameraParams.camerasParam[i][1] = cameraParam->camerasParam[i][1];
                 s_savedCameraParams.camerasParam[i][2] = cameraParam->camerasParam[i][3];
                 s_savedCameraParams.camerasParam[i][3] = cameraParam->camerasParam[i][3];
             }
-        } else if (fovChange == OTTSETTING_FOV_43) {
+        } else if (fovChange == MENUSETTING2_FOV_43) {
             for (int i = 0; i < 9; ++i) {
                 s_savedCameraParams.camerasParam[i][0] = cameraParam->camerasParam[i][0];
                 s_savedCameraParams.camerasParam[i][1] = cameraParam->camerasParam[i][0];

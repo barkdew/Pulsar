@@ -147,7 +147,6 @@ enum BMG {
     BMG_RANDOM_CUP = 0x2844,
     BMG_RANDOM_TROPHIES_MISSING_GCN = 0x2845,
     BMG_RANDOM_ALL_TROPHIES_GCN = 0x2846,
-	//Edit 2026-04-22: Change date text to default
     BMG_DATE = 0x7e1,
     BMG_NINTENDO = 0x2848,
     BMG_TEXT = 0x2849,

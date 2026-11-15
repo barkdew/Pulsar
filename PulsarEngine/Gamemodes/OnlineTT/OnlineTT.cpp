@@ -282,7 +282,6 @@ kmCall(0x8084e698, FixAfterDrift);
 
 
 //OPTIONS
-/*
 static void MuteKartSounds(Audio::EngineMgr* mgr, Audio::KartActor* actor) {
     mgr->Init(actor);
     if(System::sInstance->IsContext(PULSAR_MODE_OTT) && !actor->isLocal && Settings::Mgr::Get().GetSettingValue(Settings::SETTINGSTYPE_OTT, SETTINGOTT_MUTEPTANDPLAYERS) == false) {
@@ -311,7 +310,6 @@ static bool MutePositionTracker(CtrlRaceRankNum& tracker) {
 }
 kmCall(0x807F4AC4, MutePositionTracker);
 kmCall(0x807f4b00, MutePositionTracker);
-*/
 
 //Hide Names part of battleglitch
 

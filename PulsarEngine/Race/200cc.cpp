@@ -1,14 +1,9 @@
 #include <kamek.hpp>
-#include <MarioKartWii/Race/Racedata.hpp>
-#include <MarioKartWii/Race/Raceinfo/Raceinfo.hpp>
 #include <MarioKartWii/Kart/KartManager.hpp>
 #include <MarioKartWii/Effect/EffectMgr.hpp> 
 #include <MarioKartWii/UI/Section/SectionMgr.hpp>
-#include <MarioKartWii/UI/Page/Menu/CourseSelect.hpp>
 #include <Race/200ccParams.hpp>
 #include <PulsarSystem.hpp>
-#include <Settings/Settings.hpp>
-#include <SlotExpansion/CupsConfig.hpp>
 
 //Unoptimized code which is mostly a port of Stebler's version which itself comes from CTGP's, speed factor is in the LapSpeedModifier code
 
@@ -25,7 +20,6 @@ static void CannonExitSpeed() {
 kmCall(0x805850c8, CannonExitSpeed);
 
 void EnableBrakeDrifting(Input::ControllerHolder& controllerHolder) {
-	const u32 mode = Racedata::sInstance->racesScenario.settings.gamemode;;
     if(System::sInstance->IsContext(PULSAR_200)) {
         const ControllerType controllerType = controllerHolder.curController->GetType();
         const u16 inputs = controllerHolder.inputStates[0].buttonRaw;
@@ -66,7 +60,6 @@ kmCall(0x80521828, FixGhostBrakeDrifting);
 
 
 bool IsBrakeDrifting(const Kart::Status& status) {
-	const u32 mode = Racedata::sInstance->racesScenario.settings.gamemode;
     if(System::sInstance->IsContext(PULSAR_200)) {
         u32 bitfield0 = status.bitfield0;
         const Input::ControllerHolder& controllerHolder = status.link->GetControllerHolder();
