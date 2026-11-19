@@ -16,14 +16,31 @@ kmCall(0x807a9b28, NoBulletBillIcon);
 static void *GetCustomItemSlot(ArchiveMgr *archive, ArchiveSource type, const char *name, u32 *length){
     if (System::sInstance->IsContext(PULSAR_MEGATC)){
 		name = "ItemSlot6.bin";
+		if (System::sInstance->IsContext(PULSAR_MENOD)){
+			name = "ItemSlot6C.bin";
+		}
     }
-	if (System::sInstance->IsContext(PULSAR_UMTS)){
-		name = "ItemSlotX.bin";
+	if (System::sInstance->IsContext(PULSAR_RANDO)){
+		name = "ItemSlotR.bin";
+		if (System::sInstance->IsContext(PULSAR_MEGATC)){
+			name = "ItemSlot6R.bin";
+			if (System::sInstance->IsContext(PULSAR_MENOD)){
+				name = "ItemSlot6RC.bin";
+			}
+		}
     }
-	//CTDN - replace the last 6 lines with this
-	//if (System::sInstance->IsContext(PULSAR_MEGATC)){
-	//	name = "ItemSlot6C.bin";
-    //}
+	//CTDN - replace the last lines with this
+	/*
+	if (System::sInstance->IsContext(PULSAR_MEGATC)){
+		name = "ItemSlot6C.bin";
+    }
+	if (System::sInstance->IsContext(PULSAR_RANDO)){
+		name = "ItemSlotR.bin";
+		if (System::sInstance->IsContext(PULSAR_MEGATC)){
+			name = "ItemSlot6RC.bin";
+		}
+    }
+	*/
     return archive->GetFile(type, name, length);
 }
 kmCall(0x807bb128, GetCustomItemSlot);
