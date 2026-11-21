@@ -1,13 +1,26 @@
 # Legacy Pack Revival
-I FORGOT THE EMAIL FOR THE ACCOUNT I PUT THE SOURCE CODE ON SO I HAD TO MAKE A NEW FORK
+This is the source code for Legacy Pack Revival v2. It is a fork of Pulsar, and uses features from other forks as listed in Licensing.
 
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHHHHHHHHHHHHHHHHHHHHHHHH
+If you are planning to use this code for your own project, this information is needed:
 
-This is the source code for Legacy Pack Revival v2. It is a fork of Yosh's Track Pack DX which is a fork of OptPack which is a fork of Pulsar. Yes this is necessary.
+Countdown Mode, while also loading a separate GCT, uses its own Code.pul. You can find any changes made in that by searching comments containing CTDN. The GCT can be found in the CORE pack in lpr\CORE\CTDN, which is modified from the one made for [Japanese CT Collection Reboot](https://mkwiiki.org/wiki/Japanese_CT_Collection_Reboot).
 
-Some explanation is necessary to understand a few things:
-- Countdown Mode, while also loading a separate GCT, uses its own Code.pul. You can find any changes made in that by searching comments containing CTDN.
-- The Mega TCs flag has been repurposed for Hack Pack v6 code, and the Ultra Mini Turbos flag has been repurposed for Hack Pack vX code (unfinished as of now).
+The Mega TCs flag has been repurposed for enabling gameplay differences in Hack Pack v6. These are the No Bullet Bill Icon code by [Gabriela](https://github.com/Gabriela-Orzechowska), and removing Bloopers/POWs/TCs from the item roulette. The Ultra Mini Turbos flag was initially repurposed for Hack Pack vX support, which was never finished.
+
+I hope this can still be a good starting point for anyone looking into making custom track distributions.
+
+## Licensing
+All source code in this repository is licensed under GPLv3. See LICENSE.
+
+[Pulsar](https://github.com/MelgMKW/Pulsar) is licensed under MIT. See LICENSE_pulsar.
+
+Features are borrowed from [OptPack](https://github.com/Optllizer/OptPack) under MIT. See LICENSE_optpack.
+
+Features are borrowed from (unfortunately) [Retro Rewind](https://github.com/Retro-Rewind-Team/rr-pulsar) under GPLv3. See LICENSE_rr.
+
+Features are borrowed from [Yosh's Track Pack DX](https://github.com/YoshTaku/ytpdx3) under MIT. See LICENSE_ytpdx.
+
+Please contact me if you have any concerns with licensing, especially if your own code is being used.
 
 # Pulsar
 
