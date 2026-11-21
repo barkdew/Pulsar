@@ -4,7 +4,7 @@ namespace Pulsar {
 namespace Race {
 
 //Mushroom Glitch
-//kmWrite8(0x807BA077, 0x00000000);
+kmWrite8(0x807BA077, 0x00000000);
 
 //Rexcore Countdown
 kmWrite32(0x805A225C, 0x38800001);
@@ -19,8 +19,11 @@ kmWrite32(0x80549218, 0x38600000);
 kmWrite32(0x8054921c, 0x4e800020);
 
 //WW Bubble Skip [Ro]
-//kmWrite8(0x80609647, 0x0000003C);
-//kmWrite8(0x8060964F, 0x0000001E);
+kmWrite8(0x80609647, 0x0000003C);
+kmWrite8(0x8060964F, 0x0000001E);
+
+//Skip Bubble Formation [Ro]
+kmWrite32(0x806075F4, 0x48000060);
 
 //Skip Mode Select Option Online (Always VS) [Ro]
 kmWrite32(0x8064BD88, 0x3800008F);
@@ -59,5 +62,31 @@ kmCall(0x80828EDC, ItemRespawn);
 //3 sec TC
 kmWrite32(0x80580618, 0x388000B4);
 kmWrite32(0x80580674, 0x388000B4);
+
+// Instant Voting Roulette Decide [Ro]
+kmWrite32(0x80643BC4, 0x60000000);
+kmWrite32(0x80643C2C, 0x60000000);
+
+// Prevent Crash from Invalid Camera Pointer in Broken KMP [Gab]
+asmFunc InvalidCameraPointerFix() {
+    ASM(
+        nofralloc;
+    loc_0x0:
+        cmpwi r31, 0;
+        bne + loc_0x18;
+        mflr r12;
+        addi r12, r12, 0xA0;
+        mtlr r12;
+        blr;
+
+    loc_0x18:
+        lwz r3, 0x0(r31);
+        blr;
+    )
+}
+kmCall(0x805ABE14, InvalidCameraPointerFix);
+
+// Fix online position tracking on tracks with multiple lap counters [ZPL]
+kmWrite32(0x805354D0, 0x38A00000);
 }//namespace Race
 }//namespace Pulsar

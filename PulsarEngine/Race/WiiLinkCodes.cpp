@@ -100,6 +100,23 @@ end:
 }
 kmCall(0x807A1A54, AntiItemColCrash);
 
+// Item Spam Anti-Freeze
+asmFunc ItemSpamAntiFreeze() {
+    ASM(
+    loc_0x0:
+        lbz r12, 0x1C(r27);
+        add r12, r30, r12;
+        cmpwi r12, 0xE0;
+        blt + loc_0x18;
+        li r0, 0;
+        stb r0, 0x19(r27);
+
+    loc_0x18:
+        lbz r0, 0x19(r27);
+    )
+}
+kmCall(0x8065BBD4, ItemSpamAntiFreeze);
+
 //No Disconnect on Countdown by _tZ
 kmWrite32(0x80655578, 0x60000000);
 
@@ -187,5 +204,9 @@ loc_0x14:
   )
 }
 kmCall(0x80533430, AntiLagStart);
+
+// Force player to not be penalized [B_squo]
+kmWrite32(0x80549898, 0x38600000);
+kmWrite32(0x8054989c, 0x4E800020);
 }//namespace Race
 }//namespace Pulsar

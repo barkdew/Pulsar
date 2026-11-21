@@ -9,7 +9,7 @@ void ExpGPVSLeaderboardTotal::OnUpdate() {
         nextLeaderboardDisplayType();
         fillLeaderboardResults(GetRowCount(), this->results);
     }
-    this->results[0]->SetTextBoxMessage("time", UI::BMG_RESULT_INFO);
+    //this->results[0]->SetTextBoxMessage("time", UI::BMG_RESULT_INFO);
 }
 
 void ExpGPVSLeaderboardUpdate::OnUpdate() {
@@ -17,7 +17,7 @@ void ExpGPVSLeaderboardUpdate::OnUpdate() {
         nextLeaderboardDisplayType();
         fillLeaderboardResults(GetRowCount(), this->results);
     }
-    this->results[0]->SetTextBoxMessage("time", UI::BMG_RESULT_INFO);
+    //this->results[0]->SetTextBoxMessage("time", UI::BMG_RESULT_INFO);
 }
 
 // Apply old toggle logic, set default display type
@@ -36,7 +36,7 @@ void ExpWWLeaderboardUpdate::OnUpdate() {
         nextLeaderboardDisplayType();
         fillLeaderboardResults(GetRowCount(), this->results);
     }
-    this->results[0]->SetTextBoxMessage("time", UI::BMG_RESULT_INFO);
+    //this->results[0]->SetTextBoxMessage("time", UI::BMG_RESULT_INFO);
 }
 static LeaderboardDisplayType displayLeaderboardType = LEADERBOARD_DISPLAY_NAMES;
 

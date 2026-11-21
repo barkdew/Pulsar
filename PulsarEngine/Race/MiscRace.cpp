@@ -240,6 +240,7 @@ kmWrite32(0x8064DB2C,0x60000000);
 
 //Don't Lose VR When Disconnecting by Bully
 kmWrite32(0x80856560, 0x60000000);
+kmWrite32(0x808565CC, 0x60000000);
 
 //Disable Data Reset by Vega
 kmWrite32(0x80544928, 0x7C601B78);
