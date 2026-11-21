@@ -7,8 +7,6 @@ Countdown Mode, while also loading a separate GCT, uses its own Code.pul. You ca
 
 The Mega TCs flag has been repurposed for enabling gameplay differences in Hack Pack v6. These are the No Bullet Bill Icon code by [Gabriela](https://github.com/Gabriela-Orzechowska), and removing Bloopers/POWs/TCs from the item roulette. The Ultra Mini Turbos flag was initially repurposed for Hack Pack vX support, which was never finished.
 
-I hope this can still be a good starting point for anyone looking into making custom track distributions.
-
 ## Licensing
 All source code in this repository is licensed under GPLv3. See LICENSE.
 
@@ -19,8 +17,6 @@ Features are borrowed from [OptPack](https://github.com/Optllizer/OptPack) under
 Features are borrowed from (unfortunately) [Retro Rewind](https://github.com/Retro-Rewind-Team/rr-pulsar) under GPLv3. See LICENSE_rr.
 
 Features are borrowed from [Yosh's Track Pack DX](https://github.com/YoshTaku/ytpdx3) under MIT. See LICENSE_ytpdx.
-
-Please contact me if you have any concerns with licensing, especially if your own code is being used.
 
 # Pulsar
 
