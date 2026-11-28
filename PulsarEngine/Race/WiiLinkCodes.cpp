@@ -204,9 +204,5 @@ loc_0x14:
   )
 }
 kmCall(0x80533430, AntiLagStart);
-
-// Force player to not be penalized [B_squo]
-kmWrite32(0x80549898, 0x38600000);
-kmWrite32(0x8054989c, 0x4E800020);
 }//namespace Race
 }//namespace Pulsar

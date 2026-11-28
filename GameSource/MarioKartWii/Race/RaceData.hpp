@@ -2,7 +2,7 @@
 Racedata is the class that holds the information to set up a race, such as the gamemode and the characters each player chose
 Contributors:
     Seeky (main documentation)
-    mkwcat (main documentation)
+    TheLordScruffy (main documentation)
     WhatIsLoaf (ghost player type)
     riidefi (ParameterFile)
     CLF78 (local player count)

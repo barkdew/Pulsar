@@ -35,16 +35,16 @@ void LaunchSoftware() { //If dolphin, restarts game, else launches Riivo->HBC->O
         SystemManager::Shutdown();
         return;
     }
-	result = IO::OpenFix("/title/00010001/4c554c5a/content/title.tmd\0", IOS::MODE_NONE); //OHBC
+	result = IO::OpenFix("/title/00010001/4c554c5a/content/title.tmd\0", IOS::MODE_NONE); //HBC
     if(result >= 0) {
         ISFS::Close(result);
         OS::__LaunchTitle(0x00010001, 0x4c554c5a);
         return;
     }
-	result = IO::OpenFix("/title/00010001/48424330/content/title.tmd\0", IOS::MODE_NONE); // If HBC can't be found try OHBC
+	result = IO::OpenFix("/title/00010001/4f484243/content/title.tmd\0", IOS::MODE_NONE); // If HBC can't be found try OHBC
     if(result >= 0) {
         ISFS::Close(result);
-        OS::__LaunchTitle(0x00010001, 0x48424330);
+        OS::__LaunchTitle(0x00010001, 0x4f484243);
         return;
     }
     result = IO::OpenFix("/title/00010001/52494956/content/title.tmd\0", IOS::MODE_NONE); //Riivo

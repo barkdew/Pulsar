@@ -3,7 +3,7 @@
 ItemBehaviour is a struct containing various information about how an item should behave
 Contributors:
   Seeky (main documentation)
-  mkwcat (object id field)
+  TheLordScruffy (object id field)
 References:
   http://wiki.tockdom.com/wiki/Filesystem/rel/StaticR.rel#Item_behaviour_modifier
 */

@@ -14,6 +14,10 @@ kmWrite32(0x8053F3B8,0x3C600005);
 kmWrite32(0x8053F3BC,0x38833020);
 kmWrite32(0x8053F478,0x4800000C); //6 Minute DC Disables
 
+//Anti Online Penalized by B_squo
+kmWrite32(0x80549218, 0x38600000);
+kmWrite32(0x8054921c, 0x4e800020);
+
 //WW Bubble Skip [Ro]
 kmWrite8(0x80609647, 0x0000003C);
 kmWrite8(0x8060964F, 0x0000001E);
